@@ -1,0 +1,30 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if echo \"$TOOL_INPUT\" | grep -q 'knowledge-base/raw/'; then echo 'WARNING: raw/ is immutable. Do not modify source files in knowledge-base/raw/. Only read operations are permitted.'; exit 1; fi"
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow_read": ["knowledge-base/**"],
+    "allow_write": [
+      "knowledge-base/concepts/**",
+      "knowledge-base/topics/**",
+      "knowledge-base/summaries/**",
+      "knowledge-base/insights/**",
+      "knowledge-base/drafts/**",
+      "knowledge-base/references/**",
+      "knowledge-base/.data/index/**",
+      "knowledge-base/.data/entities/**",
+      "knowledge-base/.data/log.md"
+    ],
+    "deny_write": ["knowledge-base/raw/**"]
+  }
+}
